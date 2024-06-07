@@ -6,7 +6,7 @@ import (
 )
 
 // View the memory of data.
-func View(data *any) []byte {
+func View(data any) []byte {
 	v := reflect.ValueOf(data).Elem()
 	ptr := unsafe.Pointer(uintptr(v.Addr().UnsafePointer()))
 	size := v.Type().Size()

@@ -6,19 +6,19 @@ import (
 )
 
 // Zeros out all data making the variable unreadable. Useful if you need to eradicate a variable from memory.
-func Zero(data *any) {
-	PointerZero(data)
+func Zero(data any) {
+	PointerZero(&data)
 }
 
 // Slower than PointerZero, might be safer.
-func ReflectZero(data *any) {
+func ReflectZero(data any) {
 	v := reflect.ValueOf(data).Elem()
 	zeroValue := reflect.Zero(v.Type())
 	v.Set(zeroValue)
 }
 
 // Faster than ReflectZero, might be more unstable.
-func PointerZero(data *any) {
+func PointerZero(data any) {
 	v := reflect.ValueOf(data).Elem()
 	size := v.Type().Size()
 	ptr := unsafe.Pointer(uintptr(v.Addr().UnsafePointer()))
